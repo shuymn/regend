@@ -1,3 +1,7 @@
 .PHONY: build
-build:
-	GOOS=$(GO_OS) GOARCH=$(GO_ARCH) go build -o ./bin/regen ./main.go
+build: generate
+	GOOS=$(GO_OS) GOARCH=$(GO_ARCH) go build -o ./bin/regen ./cmd/regen/main.go
+
+.PHONY: generate
+generate:
+	go generate static
