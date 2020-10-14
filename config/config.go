@@ -13,7 +13,7 @@ var (
 	userHomeDir = os.UserHomeDir
 )
 
-type RegenConfig struct {
+type RedshiftConfig struct {
 	Host     string
 	Port     int
 	User     string
@@ -22,7 +22,7 @@ type RegenConfig struct {
 }
 
 type Config struct {
-	Regen RegenConfig
+	Redshift RedshiftConfig
 }
 
 func NewConfig() *Config {
@@ -39,14 +39,14 @@ func (c *Config) LoadTOML(filename string) error {
 }
 
 func LoadTOMLFilename() string {
-	tomlFile := filepath.Join(xdg.ConfigHome, "/regen/regen.toml")
+	tomlFile := filepath.Join(xdg.ConfigHome, "/regend/regend.toml")
 	if fileExists(tomlFile) {
 		return tomlFile
 	}
 
 	homeDir, err := userHomeDir()
 	if err == nil {
-		tomlFile = filepath.Join(homeDir, ".regen.toml")
+		tomlFile = filepath.Join(homeDir, ".regend.toml")
 		if fileExists(tomlFile) {
 			return tomlFile
 		}

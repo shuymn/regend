@@ -1,4 +1,4 @@
-module github.com/shuymn/regen
+module github.com/shuymn/regend
 
 go 1.15
 

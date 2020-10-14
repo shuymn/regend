@@ -1,11 +1,17 @@
-# regen
+# regend
 
 Generate AWS Redshift table DDL.
 
 # Installation
 
 ```bash
-go get github.com/shuymn/regen/cmd/regen
+go get github.com/shuymn/regend/cmd/regend
+```
+
+# Usage
+
+```bash
+regend table
 ```
 
 # Configuration
@@ -16,13 +22,13 @@ Following configuration file or environment variables are required to execute.
 
 By default check the following files.
 
-1. `$XDG_CONFIG_HOME/regen/regen.toml`
-2. `$HOME/.regen.toml`
+1. `$XDG_CONFIG_HOME/regend/regend.toml`
+2. `$HOME/.regend.toml`
 
 The contents of the file are as follows.
 
 ```toml
-[regen]
+[redshift]
 host = "foo.bar.com"
 port = 1234
 user = "foobar"
@@ -33,11 +39,11 @@ database = "nyan"
 ## Envitonment variable
 
 ```
-REDSHIFT_HOST
-REDSHIFT_PORT
-REDSHIFT_USER
-REDSHIFT_PASSWORD
-REDSHIFT_DATABASE
+REGEND_REDSHIFT_HOST
+REGEND_REDSHIFT_PORT
+REGEND_REDSHIFT_USER
+REGEND_REDSHIFT_PASSWORD
+REGEND_REDSHIFT_DATABASE
 ```
 
 

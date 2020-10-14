@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/shuymn/regen/cli"
+	"github.com/shuymn/regend/cli"
 )
 
 func main() {

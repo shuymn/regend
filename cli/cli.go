@@ -10,11 +10,11 @@ import (
 	"strconv"
 
 	_ "github.com/lib/pq"
-	"github.com/shuymn/regen/config"
-	"github.com/shuymn/regen/static"
+	"github.com/shuymn/regend/config"
+	"github.com/shuymn/regend/static"
 )
 
-const name = "regen"
+const name = "regend"
 
 const (
 	exitCodeOK = iota
@@ -22,7 +22,7 @@ const (
 )
 
 type CLI struct {
-	conf *config.RegenConfig
+	conf *config.RedshiftConfig
 }
 
 func NewCLI() *CLI {
@@ -54,24 +54,24 @@ func (c *CLI) Run(args []string) int {
 			return exitCodeErr
 		}
 	}
-	c.conf = &conf.Regen
+	c.conf = &conf.Redshift
 
 	// environmennnt variables
-	if regenHost := os.Getenv("REGEN_HOST"); regenHost != "" {
-		c.conf.Host = regenHost
+	if redshiftHost := os.Getenv("REGEND_REDSHIFT_HOST"); redshiftHost != "" {
+		c.conf.Host = redshiftHost
 	}
-	regenPort, err := strconv.Atoi(os.Getenv("REGEN_PORT"))
-	if err == nil && regenPort != 0 {
-		c.conf.Port = regenPort
+	redshiftPort, err := strconv.Atoi(os.Getenv("REGEND_REDSHIFT_PORT"))
+	if err == nil && redshiftPort != 0 {
+		c.conf.Port = redshiftPort
 	}
-	if regenUser := os.Getenv("REGEN_USER"); regenUser != "" {
-		c.conf.User = regenUser
+	if redshiftUser := os.Getenv("REGEND_REDSHIFT_USER"); redshiftUser != "" {
+		c.conf.User = redshiftUser
 	}
-	if regenPassword := os.Getenv("REGEN_PASSWORD"); regenPassword != "" {
-		c.conf.Password = regenPassword
+	if redshiftPassword := os.Getenv("REGEND_REDSHIFT_PASSWORD"); redshiftPassword != "" {
+		c.conf.Password = redshiftPassword
 	}
-	if regenDatabase := os.Getenv("REGEN_DATABASE"); regenDatabase != "" {
-		c.conf.Database = regenDatabase
+	if redshiftDatabase := os.Getenv("REGEND_REDSHIFT_DATABASE"); redshiftDatabase != "" {
+		c.conf.Database = redshiftDatabase
 	}
 
 	if c.conf.Host == "" {
