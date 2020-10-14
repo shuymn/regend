@@ -1,0 +1,6 @@
+bin/
+
+.envrc
+
+*.sql
+!static/*
