@@ -9,13 +9,10 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
+	"github.com/shuymn/regen/static"
 )
 
 const name = "regen"
-
-// const version = "0.1.0"
-
-// var revision = "HEAD"
 
 const (
 	exitCodeOK = iota
@@ -56,7 +53,13 @@ func generate(table string) error {
 	}
 	defer db.Close()
 
-	content, err := ioutil.ReadFile("static/generate_tbl_ddl.sql")
+	file, err := static.Root.Open("/generate_tbl_ddl.sql")
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	content, err := ioutil.ReadAll(file)
 	if err != nil {
 		return err
 	}
