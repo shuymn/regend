@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"strconv"
 
@@ -117,7 +117,7 @@ func (c *CLI) generate(table string) error {
 	}
 	defer file.Close()
 
-	content, err := ioutil.ReadAll(file)
+	content, err := io.ReadAll(file)
 	if err != nil {
 		return err
 	}
