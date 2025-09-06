@@ -1,7 +1,3 @@
 .PHONY: build
-build: generate
+build:
 	go build -o ./bin/regend ./cmd/regend/main.go
-
-.PHONY: generate
-generate:
-	go generate static

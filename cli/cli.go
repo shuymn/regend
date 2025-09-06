@@ -1,17 +1,15 @@
 package cli
 
 import (
-	"bytes"
 	"database/sql"
+	_ "embed"
 	"flag"
 	"fmt"
-	"io"
 	"os"
 	"strconv"
 
 	_ "github.com/lib/pq"
 	"github.com/shuymn/regend/config"
-	"github.com/shuymn/regend/static"
 )
 
 const name = "regend"
@@ -20,6 +18,9 @@ const (
 	exitCodeOK = iota
 	exitCodeErr
 )
+
+//go:embed generate_tbl_ddl.sql
+var ddlQuery string
 
 type CLI struct {
 	conf *config.RedshiftConfig
@@ -109,21 +110,11 @@ func (c *CLI) generate(table string) error {
 	if err != nil {
 		return err
 	}
-	defer db.Close()
+	defer func() {
+		_ = db.Close()
+	}()
 
-	file, err := static.Root.Open("/generate_tbl_ddl.sql")
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	content, err := io.ReadAll(file)
-	if err != nil {
-		return err
-	}
-	b := bytes.NewBuffer(content)
-
-	rows, err := db.Query(b.String(), table)
+	rows, err := db.Query(ddlQuery, table)
 	if err != nil {
 		return err
 	}
@@ -134,7 +125,7 @@ func (c *CLI) generate(table string) error {
 	}
 
 	values := make([]sql.RawBytes, len(columns))
-	scanArgs := make([]interface{}, len(values))
+	scanArgs := make([]any, len(values))
 	for i := range values {
 		scanArgs[i] = &values[i]
 	}

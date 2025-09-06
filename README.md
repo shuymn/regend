@@ -49,6 +49,6 @@ REGEND_REDSHIFT_DATABASE
 
 # License
 
-- static/generate_tbl_ddl.sql - Licensed under the [Amazon Software License](http://aws.amazon.com/asl/)
+- cli/generate_tbl_ddl.sql - Licensed under the [Amazon Software License](http://aws.amazon.com/asl/)
   - ref: https://github.com/awslabs/amazon-redshift-utils
 - the others - MIT (c) shuymn
