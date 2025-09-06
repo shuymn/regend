@@ -1,6 +1,8 @@
 module github.com/shuymn/regend
 
-go 1.21
+go 1.21.0
+
+toolchain go1.25.1
 
 require (
 	github.com/adrg/xdg v0.4.0
