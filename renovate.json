@@ -1,27 +1,33 @@
 {
-  "extends": ["config:base"],
-  "timezone": "Asia/Tokyo",
-  "schedule": ["every weekend"],
-  "labels": ["renovate"],
-  "lockFileMaintenance": {
-    "enabled": true
-  },
-  "packageRules": [
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    ":timezone(Asia/Tokyo)",
+    "schedule:weekends"
+  ],
+  "labels": ["dependencies"],
+  "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths"],
+  "prHourlyLimit": 0,
+  "minimumReleaseAge": "3 days",
+  "internalChecksAsSuccess": true,
+  "reviewersFromCodeOwners": true,
+  "assignAutomerge": true,
+  "customManagers": [
     {
-      "depTypeList": ["engines", "peerDependencies"],
-      "rangeStrategy": "auto"
-    },
-    {
-      "depTypeList": ["devDependencies"],
-      "updateTypes": ["digest", "minor"],
-      "automerge": true
-    },
-    {
-      "updateTypes": ["patch"],
-      "automerge": true
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.github\\/workflows\\/ci\\.ya?ml$/"],
+      "matchStrings": [
+        "GOLANGCI_LINT_VERSION: (?<currentValue>v?\\d+\\.\\d+\\.\\d+)"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "golangci/golangci-lint"
     }
   ],
-  "postUpdateOptions": ["gomodTidy", "npmDedupe", "npmDedupeHighest"],
-  "rangeStrategy": "bump"
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": ">=1.0.0",
+      "automerge": true
+    }
+  ]
 }
-
