@@ -7,7 +7,7 @@ toolchain go1.25.1
 require (
 	github.com/adrg/xdg v0.4.0
 	github.com/lib/pq v1.10.9
-	github.com/pelletier/go-toml v1.9.5
+	github.com/pelletier/go-toml/v2 v2.2.4
 )
 
 require (
